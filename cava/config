@@ -1,0 +1,39 @@
+[general]
+; autosens = 1               # auto-adjust sensitivity
+; sensitivity = 100         # initial sens (100% = neutral)
+; framerate = 60            # cap FPS so it’s not too wild
+
+; bars = 0                  # 0 = auto-fill your terminal width
+; bar_width = 1             # skinny bars
+; bar_spacing = 0           # zero gaps for that continuous vibe
+
+[input]
+; method = pulse            # or your favorite: alsa, pipewire, etc.
+; source = auto
+
+[output]
+method = noncurses          # terminal-only, no extra window
+orientation = bottom        # bars grow upward
+channels = stereo           # mirrored bass in the middle
+waveform = 0                # spectrum, not waveform
+xaxis = none                # clean canvas
+show_idle_bar_heads = 0     # no idle ticks
+synchronized_sync = 1       # smoother redraw on modern emulators
+
+[color]
+background = '#0d0d0d'      # true-color dark slate
+foreground = default        # fallback
+
+gradient = 1                # enable gradient mode
+gradient_color_1 = '#ff00ff' # magenta
+gradient_color_2 = '#8a00ff' # deep violet
+gradient_color_3 = '#00ffff' # cyan
+gradient_color_4 = '#00ff80' # electric green
+gradient_color_5 = '#ffff00' # yellow
+; you can define up to gradient_color_8 for more steps
+
+[smoothing]
+noise_reduction = 85        # balance: smooth but still reactive
+
+[sync]
+; overshoot = 0             # obsolete in 0.6+, we rely on noise_reduction
