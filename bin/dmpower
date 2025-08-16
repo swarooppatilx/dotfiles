@@ -1,0 +1,10 @@
+choice=$(printf "Lock\nSuspend\nReboot\nShutdown\nLogout" | dmenu -i -p "Power:")
+[ -z "$choice" ] && exit
+
+case "$choice" in
+    Lock) betterlockscreen -l dim --time-format "%I:%M %p" ;;
+    Suspend) slock && systemctl suspend ;;
+    Reboot) systemctl reboot ;;
+    Shutdown) systemctl poweroff ;;
+    Logout) killall dwm ;;
+esac

@@ -1,0 +1,5 @@
+alias dmpower="~/.local/bin/dmpower"
+alias clip_in="~/.local/bin/clip_in"
+alias clip_out="~/.local/bin/clip_out"
+alias aura="~/.local/bin/aura"
+alias battery="~/.local/bin/battery"

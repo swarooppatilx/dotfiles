@@ -1,0 +1,9 @@
+#!/bin/sh
+mode=$(asusctl profile -p | awk -F'Active profile is ' '{print $2}' | tr -d '\n')
+case $mode in
+  Quiet) echo -e "\uf028" ;;
+  Balanced) echo -e "\uf06e" ;;
+  Performance) echo -e "\uf0e7" ;;
+  *) echo "?" ;;
+esac
+
