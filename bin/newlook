@@ -4,5 +4,3 @@ wal -c
 wal -i /home/daenerys/pics/cyberpunk.jpg
 #set dmenu colorscheme
 xdotool key super+F5
-#set wallpaper
-xwallpaper --zoom /home/daenerys/pix/cyberpunk.jpg

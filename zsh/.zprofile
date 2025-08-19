@@ -1,3 +1,2 @@
-if [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty1 ]]; then
-	exec startx
-fi
+XDG_RUNTIME_DIR=/run/user/1000
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus

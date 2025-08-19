@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+OUTDIR="$HOME/videos/recordings"
+mkdir -p "$OUTDIR"
+
+# detect resolution and audio monitor
+RES=$(xrandr | grep '*' | awk '{print $1}')
+FPS=60
+MONITOR=$(pactl list short sources | grep ".monitor" | awk '{print $2}' | head -n 1)
+
+# filename
+FILENAME="record-$(date +'%Y-%m-%d_%H-%M-%S').mp4"
+OUTFILE="$OUTDIR/$FILENAME"
+
+echo "Recording screen ($RES @ ${FPS}fps) with audio from [$MONITOR]"
+echo "Saving to: $OUTFILE"
+echo "Press 'q' in terminal to stop."
+
+ffmpeg \
+    -f x11grab -video_size "$RES" -framerate $FPS -i :0.0 \
+    -f pulse -i "$MONITOR" \
+    -c:v libx264 -preset veryfast -crf 23 \
+    -c:a aac -b:a 192k \
+    "$OUTFILE"

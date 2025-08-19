@@ -1,0 +1,6 @@
+#/usr/share/xsessions
+[Desktop Entry]
+Name=dwm
+Comment=Dynamic Window Manager
+Exec=/home/daenerys/.local/bin/dwm
+Type=XSession
