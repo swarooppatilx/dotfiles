@@ -1,0 +1,46 @@
+#!/bin/sh
+
+while :; do
+    song="$(mpc current 2>/dev/null)"
+    [ -z "$song" ] && song="No song playing"
+
+    state="$(mpc status 2>/dev/null | sed -n '2p' | awk '{print $1}')"
+    case "$state" in
+        "[playing]"|"playing") sym="▶" ;;
+        "[paused]"|"paused")  sym="⏸" ;;
+        *) sym="■" ;;
+    esac
+
+    header="$sym$song"
+
+    # Preload all songs once for local search
+    library="$(mpc listall 2>/dev/null | sed 's/%20/ /g')"
+
+    # dmenu content: header, controls, songs
+    choice="$(printf '%s\nNext\nPrev\nStop\nRepeat\nRandom\nQuit\n%s' \
+        "$header" "$library" | dmenu -i -p "MPD")"
+
+    [ -z "$choice" ] && exit
+
+    case "$choice" in
+        "$header")   mpc toggle ;;
+        Next)        mpc next ;;
+        Prev)        mpc prev ;;
+        Stop)        mpc stop ;;
+        Repeat)      mpc repeat ;;
+        Random)      mpc random ;;
+        Quit)        exit ;;
+        *)
+            # If the song exists in library, add (if not already) and play
+            if mpc listall | grep -Fxq "$choice"; then
+                # if not already in playlist, add it
+                if ! mpc playlist | grep -Fxq "$choice"; then
+                    mpc add "$choice"
+                fi
+                # play that song by its position in playlist
+                pos="$(mpc playlist | grep -Fnx "$choice" | cut -d: -f1 | head -n1)"
+                [ -n "$pos" ] && mpc play "$pos"
+            fi
+            ;;
+    esac
+done

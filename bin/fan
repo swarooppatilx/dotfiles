@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+icon=$(printf '\uf863')
+
+for hw in /sys/class/hwmon/hwmon*; do
+    for fan in "$hw"/fan*_input; do
+        [ -e "$fan" ] || continue
+        rpm=$(cat "$fan" 2>/dev/null)
+        if [ -n "$rpm" ] && [ "$rpm" -ne 0 ]; then
+            echo "$icon $rpm RPM"
+            exit 0
+        fi
+    done
+done
+
+echo "$icon -- RPM"
+

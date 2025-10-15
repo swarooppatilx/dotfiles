@@ -1,8 +1,9 @@
-alias dmpower="~/.local/bin/dmpower"
-alias clip_in="~/.local/bin/clip_in"
-alias clip_out="~/.local/bin/clip_out"
 alias aura="~/.local/bin/aura"
 alias battery="~/.local/bin/battery"
+alias clipin="~/.local/bin/clipin"
+alias clipout="~/.local/bin/clipout"
+alias dwpower="~/.local/bin/dwpower"
+alias music="~/.local/bin/music"
 alias newlook="~/.local/bin/newlook"
 alias record="~/.local/bin/record"
-alias music="st -t ncmpcpp -e ncmpcpp"
+alias mpv='mpv --no-osc'

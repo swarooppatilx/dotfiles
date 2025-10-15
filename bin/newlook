@@ -1,6 +1,12 @@
 #!/bin/sh
 wal -c
-#generate and set color scheme
-wal -i /home/daenerys/pics/cyberpunk.jpg
-#set dmenu colorscheme
+
+# pick a random image from folder
+DIR="/home/daenerys/pics/walls"
+PIC=$(find "$DIR" -type f | shuf -n 1)
+
+# generate and set color scheme
+wal -i "$PIC"
+
+# refresh dmenu / other dependent tools
 xdotool key super+F5

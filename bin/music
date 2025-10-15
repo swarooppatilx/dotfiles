@@ -1,0 +1,2 @@
+#!/bin/sh
+mpc add / && st -t ncmpcpp -e ncmpcpp

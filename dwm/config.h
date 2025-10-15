@@ -25,12 +25,12 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "" };
+static const char *tags[] = { "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* class      instance  title      tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "firefox",  NULL,     NULL,      1 << 1,    0,          0,          -1,        -1 }, // 
-	{ "code",     NULL,     "code",      1 << 2,    0,          0,          -1,        -1 }, // 
+	{ "Firefox",  NULL,     NULL,      1 << 1,    0,          0,          -1,        -1 }, // 
+	{ "Code",     NULL,     "code",      1 << 2,    0,          0,          -1,        -1 }, // 
 	{ "St",       NULL,     "ncmpcpp",    1 << 3,    0,          1,           0,        -1 }, // 
 	{ "St",       NULL,     NULL,      0,         0,          1,           0,        -1 }, // generic st
 	{ NULL,       NULL,     "Event Tester", 0,    0,          0,           1,        -1 }, // xev
@@ -71,6 +71,21 @@ static const char *voldowncmd[]   = { "pamixer", "-d", "5", NULL };
 static const char *volupcmd[]     = { "pamixer", "-i", "5", NULL };
 static const char *mictogglecmd[] = { "pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL};
 
+/* next, prev tags */
+void view_adjacent(const Arg *arg) {
+    int i, curtag = 0;
+    for (i = 0; i < LENGTH(tags); i++) {
+        if (selmon->tagset[selmon->seltags] & (1 << i)) {
+            curtag = i;
+            break;
+        }
+    }
+    int nexttag = (curtag + arg->i + LENGTH(tags)) % LENGTH(tags);
+    const Arg newtag = {.ui = 1 << nexttag};
+    view(&newtag);
+}
+
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
@@ -102,6 +117,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
 	{ MODKEY,                       XK_Print,  spawn,          {.v = flameshotcmd }},
         { MODKEY,         		XK_Escape, spawn,          SHCMD("$HOME/.local/bin/dmpower") },
+	{ MODKEY,                       XK_m,      spawn,          SHCMD("$HOME/.local/bin/music-menu") },
         { 0,                            XK_F8,     spawn,          {.v = brightupcmd } },
         { 0,                            XK_F7,     spawn,          {.v = brightdowncmd } },
         { 0,                            XK_F1,     spawn,          {.v = voltogglecmd } },
@@ -111,6 +127,9 @@ static Key keys[] = {
 	{ 0, 				XK_F5, 	   spawn,          SHCMD("asusctl profile -n") },
 	{ 0, 				XF86XK_Launch4, spawn, 	   SHCMD("asusctl aura -n") },
 	{ 0, 				XF86XK_Launch5, spawn, 	   SHCMD("asusctl aura -p") },
+  { MODKEY,                       XK_Right,  view_adjacent, {.i = +1 } },
+  { MODKEY,                       XK_Left,   view_adjacent, {.i = -1 } },
+  { MODKEY,                       XK_v,      spawn,          SHCMD("clipmenu") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)

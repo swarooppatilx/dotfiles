@@ -14,6 +14,12 @@ usermodmap="$HOME/.Xmodmap"
 sysresources="$xinitdir/.Xresources"
 sysmodmap="$xinitdir/.Xmodmap"
 
+#clipmenu config
+CM_DIR="$HOME/.cache/clipmenu"
+CM_HISTLENGTH=10
+CM_MAX_CLIPS=10
+CM_SELECTIONS="clipboard"
+
 # merge in defaults and keymaps
 
 if [ -f "$sysresources" ]; then
@@ -52,6 +58,5 @@ fi
 ~/.local/bin/newlook &
 xcompmgr &
 slstatus &
-parcellite &
-exec dwm
-
+clipmenud &
+exec dwm > /dev/null 2>&1

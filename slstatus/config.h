@@ -71,7 +71,7 @@ static const struct arg args[] = {
     { netspeed_tx,    "  %sB/s",           "wlp3s0" },
     { wifi_perc,      " |  %s%%",          "wlp3s0" },
     { cpu_perc,       " |  %s%%",          NULL },
-    { run_command,    " | \uf085 %s RPM",    "cat /sys/class/hwmon/hwmon6/fan1_input | tr -d '\n'" }, /* Fan RPM */
+    { run_command,    " | %s",    "$HOME/.local/bin/fan" }, /* Fan RPM */
     { temp,           " |  %s°C",          "/sys/class/thermal/thermal_zone0/temp" },
     { ram_perc,       " |  %s%%",          NULL },
     { run_command,    " |  %s%%",          "pamixer --get-volume | tr -d '\n'" },
